@@ -4,6 +4,8 @@ const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 const SearchParams = () => {
   const [location, setLocation] = useState("");
   const [animal, setAnimal] = useState("");
+  const [breed, setBreed] = useState("");
+  const breeds = [];
 
   return (
     <div className="search-params">
@@ -24,6 +26,7 @@ const SearchParams = () => {
             value={animal}
             onChange={(e) => {
               setAnimal(e.target.value);
+              setBreed("");
             }}
           >
             <option />
@@ -34,7 +37,26 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        ;<button>Submit</button>
+        <label htmlFor="breed">
+          Breed
+          <select
+            // disable this dropdown when there are no breeds to select (while the breeds array is empty)
+            disabled={breeds.length === 0}
+            id="breed"
+            value={breed}
+            onChange={(e) => {
+              setBreed(e.target.value);
+            }}
+          >
+            <option />
+            {breeds.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button>Submit</button>
       </form>
     </div>
   );
