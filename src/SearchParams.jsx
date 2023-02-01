@@ -21,10 +21,9 @@ const SearchParams = () => {
           Animal
           <select
             id="animal"
-            // value={animal}
+            value={animal}
             onChange={(e) => {
-              () => setAnimal(e.target.value);
-              setBreed("");
+              setAnimal(e.target.value);
             }}
           >
             <option />
