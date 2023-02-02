@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useBreedList from "./useBreedList";
 import Pet from "./Pet";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
@@ -8,7 +9,7 @@ const SearchParams = () => {
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
-  const breeds = [];
+  const [breeds] = useBreedList(animal);
 
   // useEffect(() => {
   //   fetch(
@@ -19,7 +20,7 @@ const SearchParams = () => {
   //   // console.log(pets);
   // }, []);
 
-  // Explanation from the course website why we don't place the data call inside of the effect (in short - because we don't want the immediate default behaviour but to launch it later on pressing the submit btn)
+  // Explanation from the course website why we don't place the data call inside of the effect (in short - because beside the default behaviour (loading the list of pets on load) we also want to launch it later on pressing the submit btn)
   // We're taking advantage of closures here that if we define the requestPets function inside of the render that it will have access to that scope and can use all the hooks there.
   // We could have actually put requestPets inside of the effect but we're going to use it again here in a sec with the submit button.
   useEffect(() => {
@@ -77,9 +78,7 @@ const SearchParams = () => {
             disabled={breeds.length === 0}
             id="breed"
             value={breed}
-            onChange={(e) => {
-              setBreed(e.target.value);
-            }}
+            onChange={(e) => setBreed(e.target.value)}
           >
             <option />
             {breeds.map((breed) => (
